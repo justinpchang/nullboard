@@ -4705,22 +4705,22 @@
 			return false;
 		}
 
-		// done
-		if (ev.keyCode == 13 && ev.altKey ||
-		    ev.keyCode == 13 && ev.shiftKey && ! ev.ctrlKey)
+		// done and do nothing (alt-enter)
+		if (ev.keyCode == 13 && ev.altKey)
 		{
 			stopEditing($this, false, false);
 			return false;
 		}
 
-		// done + (add after / add before)
-		if (ev.keyCode == 13 && ev.ctrlKey)
+		// done add after (enter) or add before (ctrl-enter)
+		// (shift-enter) should just add a newline
+		if (ev.keyCode == 13 && !ev.shiftKey)
 		{
 			stopEditing($this, false, false);
 
 			if (isNote)
 			{
-				if (ev.shiftKey) // ctrl-shift-enter
+				if (ev.ctrlKey) // ctrl-enter
 					addNote($list, null, $note);
 				else
 					addNote($list, $note);
